@@ -1,0 +1,5 @@
+rootProject.name = 'Checksum-grpc'
+include 'checksum-sender'
+include 'checksum-receiver'
+include 'checksum-common'
+

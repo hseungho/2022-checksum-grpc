@@ -1,0 +1,46 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "gradle.plugin.com.github.johnrengelman:shadow:7.1.2"
+    }
+}
+
+plugins {
+    id 'java'
+    id 'com.google.protobuf' version '0.8.18'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+compileJava.options.encoding = 'UTF-8'
+
+group 'com.hsh.checksum-grpc'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(path: ":checksum-common", configuration:"default")
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class' : 'ReceiverAppMain'
+    }
+}
+
+shadowJar {
+    mergeServiceFiles()
+}
